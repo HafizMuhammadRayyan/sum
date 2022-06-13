@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #matrix1 {
+            border: 1px solid rgb(51, 50, 50);
+            padding: 5px;
+        }
+
+        #matrix2 {
+            border: 1px solid rgb(51, 50, 50);
+            padding: 5px;
+        }
+
+        #two {
+            display: flex;
+            justify-content: space-around;
+        }
+   
+
+        /* #result { display: flex; justify-content: center; } */
+    </style>
+</head>
+
+<body>
+    <form onsubmit="check(); return false">
+        <p>Enter size</p>
+        <input type="number" required min="2" id="size1"> X <input type="number" required min="2" id="size2">
+        <button type="submit">Start</button>
+    </form>
+    <p id="para"></p>
+    <form onsubmit="sum(); return false" id="second">
+        <div id="two">
+            <div id="matrix1"></div>
+            +
+            <div id="matrix2"></div>
+        </div>
+        <button>sum</button>
+        =
+        <div id="result"></div>
+    </form>
+    <script>
+        let size2 = "";
+        let size1 = "";
+
+        function check() {
+            size2 = Number(document.querySelector("#size2").value);
+            size1 = Number(document.querySelector("#size1").value);
+            let text = "";
+            if (size1 != size2) {
+                text = "Enter same number";
+                document.querySelector("#para").innerText = text;
+
+                return;
+            }
+
+            let firstval = document.querySelector("#matrix1");
+            let secondval = document.querySelector("#matrix2");
+            let resultval = document.querySelector("#result");
+
+
+            firstval.innerHTML = "";
+            secondval.innerHTML = "";
+            resultval.innerHTML = "";
+
+            for (let i = 0; i < size1; i++) {
+                for (let j = 0; j < size2; j++) {
+                    firstval.innerHTML += ` <input type="number" required size="1" id="matrixval1${i}${j}" value="0" style = "width : 40px"> `;
+                    secondval.innerHTML += ` <input type="number" required size="1" id="matrixval2${i}${j}" value="0" style = "width : 40px"> `;
+                    resultval.innerHTML += ` <input type="number" disabled required size="1" id="matrixval3${i}${j}" value="0" style = "width : 40px"> `;
+                }
+                firstval.innerHTML += "<br>";
+                secondval.innerHTML += "<br>";
+                resultval.innerHTML += "<br>";
+            }
+            document.querySelector("#second").classList.remove("hidden");
+
+        }
+        function sum() {
+            console.log("running")
+            for (let i = 0; i < size1; i++) {
+                for (let j = 0; j < size2; j++) {
+                    console.log(i, j)
+                    document.querySelector(`#matrixval3${i}${j}`).value =
+                        +document.querySelector(`#matrixval1${i}${j}`).value
+                        +
+                        +document.querySelector(`#matrixval2${i}${j}`).value;
+                }
+
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
